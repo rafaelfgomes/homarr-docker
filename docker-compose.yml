@@ -20,3 +20,9 @@ services:
       - DB_PASSWORD=${DB_PASSWORD}
     ports:
       - ${WEBUI_PORT:-7575}:7575
+    networks:
+      - net
+
+networks:
+  net:
+    external: false
