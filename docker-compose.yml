@@ -1,0 +1,22 @@
+services:
+  homarr:
+    container_name: homarr
+    image: ghcr.io/homarr-labs/homarr:latest
+    restart: unless-stopped
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+      - ./data:/appdata
+    environment:
+      - SECRET_ENCRYPTION_KEY=${SECRET_ENCRYPTION_KEY}
+      - PUID=${PUID}
+      - PGID=${PGID}
+      - DB_DRIVER=${DB_DRIVER}
+      - DB_DIALECT=${DB_DIALECT}
+      - DB_URL=${DB_URL}
+      - DB_HOST=${DB_HOST}
+      - DB_PORT=${DB_PORT}
+      - DB_NAME=${DB_NAME}
+      - DB_USER=${DB_USER}
+      - DB_PASSWORD=${DB_PASSWORD}
+    ports:
+      - ${WEBUI_PORT:-7575}:7575
