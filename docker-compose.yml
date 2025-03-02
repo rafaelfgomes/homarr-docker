@@ -8,8 +8,6 @@ services:
       - ./data:/appdata
     environment:
       - SECRET_ENCRYPTION_KEY=${SECRET_ENCRYPTION_KEY}
-      - PUID=${PUID}
-      - PGID=${PGID}
       # - DB_DRIVER=${DB_DRIVER}
       # - DB_DIALECT=${DB_DIALECT}
       # - DB_URL=${DB_URL}
