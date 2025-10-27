@@ -1,7 +1,8 @@
 services:
   homarr:
-    container_name: homarr
     image: ghcr.io/homarr-labs/homarr:latest
+    container_name: homarr
+    hostname: homarr
     restart: unless-stopped
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
