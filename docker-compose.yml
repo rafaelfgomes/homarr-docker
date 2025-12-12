@@ -1,15 +1,15 @@
 services:
   homarr:
-    build:
-      context: .
-      dockerfile: Dockerfile
+    image: ghcr.io/homarr-labs/homarr
     container_name: homarr
     hostname: homarr
     restart: unless-stopped
     volumes:
       - data:/appdata
     environment:
-      - SECRET_ENCRYPTION_KEY=${SECRET_ENCRYPTION_KEY}
+      - SECRET_ENCRYPTION_KEY=${SECRET_ENCRYPTION_KEY}]
+    ports:
+      - 7575:7575
     networks:
       net:
 
