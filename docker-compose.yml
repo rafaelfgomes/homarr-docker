@@ -1,19 +1,21 @@
 services:
   homarr:
-    image: ghcr.io/homarr-labs/homarr:latest
+    image: ghcr.io/homarr-labs/homarr
     container_name: homarr
     hostname: homarr
     restart: unless-stopped
     volumes:
-      - ${APPDATA_FOLDER:-./appdata}:/appdata
-      - /var/run/docker.sock:/var/run/docker.sock
+      - data:/appdata
     environment:
       - SECRET_ENCRYPTION_KEY=${SECRET_ENCRYPTION_KEY}
-    ports:
-      - ${WEBUI_PORT:-7575}:7575
     networks:
-      - net
+      net:
+
+volumes:
+  data:
+    name: homarr-data
 
 networks:
   net:
-    external: false
+    external: true
+    name: reverse-proxy-network
