@@ -1,6 +1,8 @@
 services:
   homarr:
-    image: ghcr.io/homarr-labs/homarr
+    build:
+      context: .
+      dockerfile: Dockerfile
     container_name: homarr
     hostname: homarr
     restart: unless-stopped
