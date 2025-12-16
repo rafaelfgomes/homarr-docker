@@ -1,0 +1,4 @@
+services:
+  homarr:
+    ports:
+      - ${HTTP_PORT:-7575}:7575
