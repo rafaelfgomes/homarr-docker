@@ -5,11 +5,7 @@ services:
     hostname: homarr
     restart: unless-stopped
     volumes:
-      - ${HOMARR_DATA_FOLDER:-./data}:/appdata
+      - ./data:/appdata
     environment:
       - SECRET_ENCRYPTION_KEY=${SECRET_ENCRYPTION_KEY}
-    networks:
-      net:
-
-networks:
-  net: {}
+    network_mode: host
