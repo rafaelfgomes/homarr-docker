@@ -8,4 +8,13 @@ services:
       - ./data:/appdata
     environment:
       - SECRET_ENCRYPTION_KEY=${SECRET_ENCRYPTION_KEY}
+      - DB_DRIVER=node-postgres
+      - DB_DIALECT=postgresql
+      - DB_URL=${DB_HOST}:${DB_PORT:-5432}
+      - DB_HOST=${DB_HOST}
+      - DB_PORT=${DB_PORT:-5432}
+      - DB_NAME=${DB_NAME}
+      - DB_USER=admin
+      - DB_PASSWORD=${DB_PASSWORD}
+      - HTTPS_PROXY=${EXTERNAL_URL}
     network_mode: host
