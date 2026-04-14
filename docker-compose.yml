@@ -10,7 +10,7 @@ services:
       - SECRET_ENCRYPTION_KEY=${SECRET_ENCRYPTION_KEY}
       - DB_DRIVER=node-postgres
       - DB_DIALECT=postgresql
-      - DB_URL=${DB_HOST}:${DB_PORT:-5432}
+      - DB_URL="postgresql://admin:${DB_PASSWORD}@${DB_HOST}:${DB_PORT:-5432}/${DB_NAME}"
       - DB_HOST=${DB_HOST}
       - DB_PORT=${DB_PORT:-5432}
       - DB_NAME=${DB_NAME}
