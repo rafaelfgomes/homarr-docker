@@ -21,6 +21,7 @@ services:
       REDIS_PASSWORD: ${REDIS_PASSWORD}
     depends_on:
       - db
+      - redis
     networks:
       local:
 
