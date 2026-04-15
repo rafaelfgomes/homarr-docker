@@ -22,6 +22,8 @@ services:
     depends_on:
       - db
       - redis
+    ports:
+      - 7575:7575
     networks:
       local:
 
