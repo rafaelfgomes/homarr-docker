@@ -1,0 +1,37 @@
+services:
+  homarr:
+    image: ghcr.io/homarr-labs/homarr
+    container_name: homarr-app
+    restart: unless-stopped
+    volumes:
+      - ${HOMARR_CONFIG_FOLDER:-./data/homarr/config}:/appdata
+    environment:
+      SECRET_ENCRYPTION_KEY: ${SECRET_ENCRYPTION_KEY}
+      REDIS_HOST: ${REDIS_IP}
+      REDIS_PORT: 6379
+      REDIS_USERNAME: admin
+      REDIS_PASSWORD: ${REDIS_PASSWORD}
+    depends_on:
+      - redis
+    networks:
+      external:
+        ipv4_address: ${HOMARR_IP}
+
+  redis:
+    image: redis:7.4.8-alpine
+    container_name: homarr-redis
+    restart: unless-stopped
+    command: >
+      redis-server
+        --requirepass "${REDIS_PASSWORD}"
+        --user admin on +@all ~* >${REDIS_PASSWORD}
+    volumes:
+      - ${HOMARR_REDIS_FOLDER:-./data/homarr/redis}:/data
+    networks:
+      external:
+        ipv4_address: ${REDIS_IP}
+
+networks:
+  external:
+    external: true
+    name: ${EXTERNAL_NETWORK_NAME}
