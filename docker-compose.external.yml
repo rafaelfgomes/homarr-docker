@@ -4,16 +4,18 @@ services:
     container_name: homarr-app
     restart: unless-stopped
     volumes:
-      - ${HOMARR_CONFIG_FOLDER:-./data/homarr/config}:/appdata
+      - ${HOMARR_DATA_FOLDER:-./appdata/homarr/config}:/appdata
     environment:
       SECRET_ENCRYPTION_KEY: ${SECRET_ENCRYPTION_KEY}
-      REDIS_HOST: ${REDIS_IP}
+      REDIS_HOST: redis
       REDIS_PORT: 6379
       REDIS_USERNAME: admin
       REDIS_PASSWORD: ${REDIS_PASSWORD}
     depends_on:
       - redis
     networks:
+      local:
+        ipv4_address: 172.${SUBNET_NUMBER:-20}.0.2
       external:
         ipv4_address: ${HOMARR_IP}
 
@@ -26,12 +28,17 @@ services:
         --requirepass "${REDIS_PASSWORD}"
         --user admin on +@all ~* >${REDIS_PASSWORD}
     volumes:
-      - ${HOMARR_REDIS_FOLDER:-./data/homarr/redis}:/data
+      - ${HOMARR_REDIS_FOLDER:-./appdata/homarr/redis}:/data
     networks:
-      external:
-        ipv4_address: ${REDIS_IP}
+      local:
+        ipv4_address: 172.${SUBNET_NUMBER:-20}.0.3
 
 networks:
   external:
     external: true
     name: ${EXTERNAL_NETWORK_NAME}
+  local:
+    name: homarr-local-network
+    ipam:
+      config:
+        - subnet: 172.${SUBNET_NUMBER:-20}.0.0/16
