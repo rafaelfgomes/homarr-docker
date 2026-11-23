@@ -18,6 +18,7 @@ services:
         ipv4_address: 172.${SUBNET_NUMBER:-20}.0.2
       external:
         ipv4_address: ${HOMARR_IP}
+        gw_priority: 1
 
   redis:
     image: redis:7.4.8-alpine
